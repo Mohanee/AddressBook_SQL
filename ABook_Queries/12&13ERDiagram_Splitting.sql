@@ -76,8 +76,8 @@ INSERT INTO AddressInfo(FirstName,Address,City,State,Zipcode)
 		   ('Chinmayi','Ban/A','Bhellary','K.A.','780006'),
 		   ('Saras','Russian Comp','Bhilai','C.G.','490006'),
 		    ('Shriya','Newtown','Kolkata','WB','711006'),
-		('Prateek','LajpatNagar','Lucknow','UP','490234'),
-		('Kaushal','Bisra','Patna','BH','211906');
+			('Prateek','LajpatNagar','Lucknow','UP','490234'),
+			('Kaushal','Bisra','Patna','BH','211906');
 GO
 
 select * from AddressInfo;
@@ -85,5 +85,12 @@ select * from AddressInfo;
 select a.FirstName,i.City from ABookTable a join AddressInfo i 
 on (a.FirstName= i.FirstName) where i.City='Bhilai'
 order by a.FirstName;
+
+select n.FirstName, n.LastName, af.Address, af.City, af.State, af.Zipcode, cf.PhoneNumber,cf.Email, rt.RelationType
+from AddressInfo af join ABookTable n on  af.FirstName= n.FirstName
+join ContactInfo cf on cf.FirstName=af.FirstName
+join RelationTable rt on af.FirstName=rt.FirstName;
+
+
  
 
