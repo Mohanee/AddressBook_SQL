@@ -52,5 +52,71 @@ namespace ABook_DBConnection
                 System.Console.WriteLine(e.Message);
             }
         }
+
+        public string RetrieveForTesting(string testQuery)
+        {
+            string modifiedCity = "";
+            try
+            {
+                ContactsModel contactModel = new ContactsModel();
+                using (this.connection)
+                {
+                    string query = testQuery;
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            modifiedCity = dr.GetString(0);
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("No data found");
+                    }
+                }
+                return modifiedCity;
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+                return modifiedCity;
+            }
+        }
+
+
+        public void UpdateContact(string updateQuery)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    string query = updateQuery;
+                    
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (rows > 0)
+                    {
+                        Console.WriteLine(rows + " row(s) affected");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please check your query");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }

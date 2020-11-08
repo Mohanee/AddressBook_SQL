@@ -8,7 +8,8 @@ namespace ABook_DBConnection
         {
             Console.WriteLine("Hello World!");
             AddressBookRepo abrepo = new AddressBookRepo();
-            abrepo.RetrieveAllContacts();
+            //abrepo.RetrieveAllContacts();
+            abrepo.UpdateContact();
         }
     }
 }
