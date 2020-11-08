@@ -36,16 +36,16 @@ namespace ABTestProject
         {
             AddressBookRepo aRepo = new AddressBookRepo();
 
-          /*  string cityCountQuery = @"select count(city) as Count from AddressInfo where City='Bhilai' group by City;";
+           string cityCountQuery = @"select count(city) as Count from AddressInfo where City='Bhilai' group by City;";
             int actualCityCount= aRepo.CountData(cityCountQuery);
             int expectedCityCount = 1;
-          */
+          
             string stateCountQuery= @"select count(state) as Count from AddressInfo where state='C.G.' group by State;";
             int actualStateCount = aRepo.CountData(stateCountQuery);
             int expectedStateCount = 2;
 
             Assert.AreEqual(actualStateCount, expectedStateCount);
-            //Assert.AreEqual(actualCityCount, expectedCityCount);
+            Assert.AreEqual(actualCityCount, expectedCityCount);
         }
     }
 }
