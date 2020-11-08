@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ABook_DBConnection
 {
+    /// <summary>
+    /// Getters and Setters for all column names
+    /// </summary>
     public class ContactsModel
     {
        public string FirstName {get; set;}

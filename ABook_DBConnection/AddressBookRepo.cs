@@ -10,6 +10,7 @@ namespace ABook_DBConnection
     {
         public static string connectionString = @"Data Source=(LocalDB)\BLDBserver;Initial Catalog=ABook;Integrated Security=True";
         SqlConnection connection = new SqlConnection(connectionString);
+
         public void RetrieveAllContacts()
         {
             try
@@ -53,9 +54,36 @@ namespace ABook_DBConnection
             }
         }
 
-        public string RetrieveForTesting(string testQuery)
+        public void UpdateContact(string updateQuery)
         {
-            string modifiedCity = "";
+            try
+            {
+                using (this.connection)
+                {
+                    string query = updateQuery;
+
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    int rows = cmd.ExecuteNonQuery();
+                    if (rows > 0)
+                    {
+                        Console.WriteLine(rows + " row(s) affected");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please check your query");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public int CountData(string testQuery)
+        {
+            int count = 0;
             try
             {
                 ContactsModel contactModel = new ContactsModel();
@@ -64,6 +92,42 @@ namespace ABook_DBConnection
                     string query = testQuery;
                     SqlCommand cmd = new SqlCommand(query, this.connection);
                     this.connection.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            count = dr.GetInt32(0);
+                        }
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("No data found");
+                    }
+                }
+                return count;
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+                return count;
+            }
+        }
+
+        public string RetrieveForTesting(string testQuery)
+        {
+            string cString = @"Data Source=(LocalDB)\BLDBserver;Initial Catalog=ABook;Integrated Security=True";
+            SqlConnection connection2 = new SqlConnection(cString);
+
+            string modifiedCity = "";
+            try
+            {
+                ContactsModel contactModel = new ContactsModel();
+                using (connection2)
+                {
+                    string query = testQuery;
+                    SqlCommand cmd = new SqlCommand(query, connection2);
+                    connection2.Open();
                     SqlDataReader dr = cmd.ExecuteReader();
                     if (dr.HasRows)
                     {
@@ -87,36 +151,7 @@ namespace ABook_DBConnection
         }
 
 
-        public void UpdateContact(string updateQuery)
-        {
-            try
-            {
-                using (this.connection)
-                {
-                    string query = updateQuery;
-                    
-                    SqlCommand cmd = new SqlCommand(query, this.connection);
-                    this.connection.Open();
-                    int rows = cmd.ExecuteNonQuery();
-                    this.connection.Close();
-                    if (rows > 0)
-                    {
-                        Console.WriteLine(rows + " row(s) affected");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please check your query");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            finally
-            {
-                this.connection.Close();
-            }
-        }
+     
+        
     }
 }
