@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using ABook_DBConnection;
+using System;
 
 namespace ABTestProject
 {
@@ -61,6 +62,28 @@ namespace ABTestProject
             int actualRowsDeleted= aRepo.DeleteRowsForSelectedDateRange(deleteQuery);
 
             Assert.AreEqual(actualRowsDeleted, 3);
+        }
+
+        [Test]
+        public void GivenStoreProdecure_ShouldReturnTrue_ifContactsAddedSuccesfully()
+        {
+            AddressBookRepo aRepo = new AddressBookRepo();
+
+            ContactsModel contact = new ContactsModel();
+            contact.FirstName = "Reenu";
+            contact.LastName = "Shaurya";
+            contact.Address = "LJP Colony";
+            contact.City = "Delhi";
+            contact.State = "CHG";
+            contact.Zipcode = "493487";
+            contact.PhoneNumber = "23457889";
+            contact.DateAdded = Convert.ToDateTime("2015-03-25");
+            contact.Email = "rshaurya@yahoo.com";
+            contact.RelationType = "Professional";
+            bool actualStatus= aRepo.AddContact(contact);
+
+            Assert.AreEqual(actualStatus, true);
+
         }
     }
 }

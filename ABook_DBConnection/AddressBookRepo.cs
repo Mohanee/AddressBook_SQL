@@ -211,6 +211,43 @@ namespace ABook_DBConnection
         }
 
 
+        public bool AddContact(ContactsModel model)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using(connection)
+                {
+                    SqlCommand command = new SqlCommand("SpAddContactDetails", connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@FirstName", model.FirstName);
+                    command.Parameters.AddWithValue("@LastName", model.LastName);
+                    command.Parameters.AddWithValue("@DateAdded", model.DateAdded);
+                    command.Parameters.AddWithValue("@Address", model.Address);
+                    command.Parameters.AddWithValue("@City", model.City);
+                    command.Parameters.AddWithValue("@State", model.State);
+                    command.Parameters.AddWithValue("@Zipcode", model.Zipcode);
+                    command.Parameters.AddWithValue("@PhoneNumber", model.PhoneNumber);
+                    command.Parameters.AddWithValue("@Email", model.Email);
+                    command.Parameters.AddWithValue("@RelationType", model.RelationType);
+
+                    connection.Open();
+                    var rowsAffected = command.ExecuteNonQuery();
+                    if(rowsAffected!=0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
+
      
         
     }
