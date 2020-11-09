@@ -8,9 +8,17 @@ namespace ABook_DBConnection
 
     public class AddressBookRepo
     {
+        /// <summary>
+        /// Setting up the connection
+        /// </summary>
         public static string connectionString = @"Data Source=(LocalDB)\BLDBserver;Initial Catalog=ABook;Integrated Security=True";
         SqlConnection connection = new SqlConnection(connectionString);
 
+
+        /// <summary>
+        /// Method to retrieve and display all contacts from addressBook
+        /// hence there are 4 interdependent tables, used joins
+        /// </summary>
         public void RetrieveAllContacts()
         {
             try
@@ -54,6 +62,11 @@ namespace ABook_DBConnection
             }
         }
 
+
+        /// <summary>
+        /// Method to execute update query
+        /// </summary>
+        /// <param name="updateQuery">query specifying what needs to be updated</param>
         public void UpdateContact(string updateQuery)
         {
             try
@@ -81,6 +94,12 @@ namespace ABook_DBConnection
             }
         }
 
+
+        /// <summary>
+        /// Method to count the number of Contacts belonging to a city/state
+        /// </summary>
+        /// <param name="testQuery">query specifying the city/state to find count of</param>
+        /// <returns></returns>
         public int CountData(string testQuery)
         {
             int count = 0;
@@ -114,6 +133,12 @@ namespace ABook_DBConnection
             }
         }
 
+
+        /// <summary>
+        /// Method to execute the delete query
+        /// </summary>
+        /// <param name="deleteQuery">query specifying the conditions on delete</param>
+        /// <returns></returns>
         public int DeleteRowsForSelectedDateRange(string deleteQuery)
         {
             int rowsDeleted = 0;
@@ -143,6 +168,12 @@ namespace ABook_DBConnection
             }
         }
 
+
+        /// <summary>
+        /// Method to be specifically used in testing purposes for updation
+        /// </summary>
+        /// <param name="testQuery">query specifying the details of updation</param>
+        /// <returns></returns>
         public string RetrieveForTesting(string testQuery)
         {
             string cString = @"Data Source=(LocalDB)\BLDBserver;Initial Catalog=ABook;Integrated Security=True";
