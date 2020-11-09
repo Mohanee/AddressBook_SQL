@@ -10,7 +10,7 @@ namespace ABook_DBConnection
 
             AddressBookRepo aRepo = new AddressBookRepo();
 
-         /*   //Retrieve all Contacts in AddressBook
+           //Retrieve all Contacts in AddressBook
             aRepo.RetrieveAllContacts();
 
             //Update a contact in AddressBook
@@ -21,7 +21,7 @@ namespace ABook_DBConnection
          
             //Delete Rows with selected DateRange
             string deleteQuery = @"delete from ABookTable where DateAdded between '2012-07-29' and '2013-06-29';";
-            aRepo.DeleteRowsForSelectedDateRange(deleteQuery);*/
+            aRepo.DeleteRowsForSelectedDateRange(deleteQuery);
 
             //Addnew Contact
             ContactsModel contact = new ContactsModel();

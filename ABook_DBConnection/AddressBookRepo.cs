@@ -210,7 +210,11 @@ namespace ABook_DBConnection
             }
         }
 
-
+        /// <summary>
+        /// MEthod to add a new contact with all the details
+        /// </summary>
+        /// <param name="model">Contact object to be added</param>
+        /// <returns>true if contact added successfully</returns>
         public bool AddContact(ContactsModel model)
         {
             SqlConnection connection = new SqlConnection(connectionString);
