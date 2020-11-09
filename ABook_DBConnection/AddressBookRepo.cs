@@ -114,6 +114,35 @@ namespace ABook_DBConnection
             }
         }
 
+        public int DeleteRowsForSelectedDateRange(string deleteQuery)
+        {
+            int rowsDeleted = 0;
+            try
+            {
+                using (this.connection)
+                {
+                    string query = deleteQuery;
+
+                    SqlCommand cmd = new SqlCommand(query, this.connection);
+                    this.connection.Open();
+                    rowsDeleted = cmd.ExecuteNonQuery();
+                    if (rowsDeleted > 0)
+                    {
+                        Console.WriteLine(rowsDeleted + " row(s) affected");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please check your query");
+                    }
+                }
+                return rowsDeleted;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public string RetrieveForTesting(string testQuery)
         {
             string cString = @"Data Source=(LocalDB)\BLDBserver;Initial Catalog=ABook;Integrated Security=True";

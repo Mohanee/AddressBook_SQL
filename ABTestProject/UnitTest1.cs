@@ -47,5 +47,20 @@ namespace ABTestProject
             Assert.AreEqual(actualStateCount, expectedStateCount);
             //Assert.AreEqual(actualCityCount, expectedCityCount);
         }
+
+
+        /// <summary>
+        /// Test to check the number of rows deleted when used Delete Query
+        /// </summary>
+        [Test]
+        public void GivenDeleteQuery_ShouldReturn_NumberofDeletedRows()
+        {
+            AddressBookRepo aRepo = new AddressBookRepo();
+            //Delete Rows with selected DateRange
+            string deleteQuery = @"delete from ABookTable where DateAdded between '2012-07-29' and '2013-06-29';";
+            int actualRowsDeleted= aRepo.DeleteRowsForSelectedDateRange(deleteQuery);
+
+            Assert.AreEqual(actualRowsDeleted, 3);
+        }
     }
 }
