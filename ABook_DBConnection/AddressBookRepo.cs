@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ABook_DBConnection
 {
@@ -251,8 +252,28 @@ namespace ABook_DBConnection
             }
         }
 
+        /// <summary>
+        /// add contacts from a list using THREADS
+        /// </summary>
+        /// <param name="list">list of contacts</param>
+        /// <returns></returns>
+        public int AddMultipleContactsUsingThreads(List<ContactsModel> list)
+        {
+            int noOfContactsAdded = 0;
+            list.ForEach(contact =>
+            {
+                noOfContactsAdded++;
+                Task thread = new Task(() =>
+                {
+                    bool isAdded = AddContact(contact);
+                });
+                thread.Start();
+            });
+            return noOfContactsAdded;
+        }
 
-     
-        
+
+
+
     }
 }
