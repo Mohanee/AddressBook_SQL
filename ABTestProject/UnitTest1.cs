@@ -64,6 +64,10 @@ namespace ABTestProject
             Assert.AreEqual(actualRowsDeleted, 3);
         }
 
+
+        /// <summary>
+        /// Test to check if the contacts are added successfully 
+        /// </summary>
         [Test]
         public void GivenStoreProdecure_ShouldReturnTrue_ifContactsAddedSuccesfully()
         {
